@@ -2,12 +2,21 @@ package com.asu.plp.visualizer;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Iterator;
 
 import javax.swing.JFrame;
+
+import org.json.JSONObject;
 
 import com.asu.plp.communication.BackendProducer;
 import com.asu.plp.communication.FrontendConsumer;
 import com.asu.plp.event.SnapshotEventHandler;
+import com.mxgraph.model.mxCell;
+import com.mxgraph.model.mxGraphModel;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.util.mxConstants;
 
@@ -28,6 +37,28 @@ public class PLPVisualizer extends JFrame
 
 		myGraph graph = new myGraph();
 		Object parent = graph.getDefaultParent();
+
+		String conf_file = "conf/graph_blue_print.json";
+		BufferedReader reader;
+		String line = null;
+		String jsonString = "";
+		try {
+			reader = new BufferedReader(new FileReader (conf_file));
+			while((line = reader.readLine()) != null) {
+				jsonString += line;
+			}
+			reader.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		JSONObject conf = new JSONObject(jsonString);
+		JSONObject vertices = conf.getJSONObject("vertices");
+		JSONObject edges = conf.getJSONObject("edges");
+
 		// nodes
 		Object pc;
 		Object add1;
@@ -49,22 +80,10 @@ public class PLPVisualizer extends JFrame
 		Object mux5;
 		// edges
 		Object pc_add1;
-		Object add1_add2;
 		Object pc_im;
-		Object im_shift1;
 		Object im_control;
-		Object im_mux1_upper;
-		Object im_mux1_lower;
-		Object im_registers_upper;
-		Object im_registers_lower;
-		Object im_sign;
 		Object im_aluc;
-		Object control_mux1;
-		Object control_registers;
 		Object control_mux4;
-		Object control_andgate;
-		Object control_mux5;
-		Object control_data;
 		
 		Object add1_mux4;
 		Object aluc_alu;
@@ -74,58 +93,64 @@ public class PLPVisualizer extends JFrame
 		graph.getModel().beginUpdate();
 		try
 		{
-			pc = graph.insertVertex(parent, "pc", "PC", 40, 280, 20, 60);
-			add1 = graph.insertVertex(parent, null, "Add", 120, 20, 60, 80);
-			instruction_memory = graph.insertVertex(parent, null, "Instruction\nMemeory", 120, 300, 60, 80);
-			shift1 = graph.insertVertex(parent, null, "Shift left 2", 260, 40, 20, 40);
-			control = graph.insertVertex(parent, null, "Control", 280, 140, 60, 120);
-			mux1 = graph.insertVertex(parent, null, "Mux", 290, 300, 20, 40);
-			sign_extend =graph.insertVertex(parent, null, "Sign-extend", 320, 420, 40, 60);
-			registers = graph.insertVertex(parent, null, "Registers", 340, 280, 80, 120);
-			shift2 = graph.insertVertex(parent, null, "Shift left 2", 480, 130, 20, 40);
-			mux2 = graph.insertVertex(parent, null, "Mux", 480, 340, 20, 40);
-			alu_control = graph.insertVertex(parent, null, "ALU Control", 500, 480, 40, 60);
-			add2 = graph.insertVertex(parent, null, "Add", 520, 90, 60, 80);
-			alu = graph.insertVertex(parent, null, "ALU", 520, 300, 60, 80);
-			mux3 = graph.insertVertex(parent, null, "Mux", 620, 70, 20, 40);
-			mux4 = graph.insertVertex(parent, null, "Mux", 660, 40, 20, 40);
-			and_gate = graph.insertVertex(parent, null, "", 600, 170, 20, 20);
-			data_memory = graph.insertVertex(parent, null, "Data\nmemory", 600, 340, 60, 90);
-			mux5 = graph.insertVertex(parent, null, "Mux", 680, 320, 20, 40);
+			Iterator<?> json_keys = vertices.keys();
+			
+			while( json_keys.hasNext() ){
+				String json_key = (String)json_keys.next();
+				JSONObject node = vertices.getJSONObject(json_key);
+				graph.insertVertex(parent, node.getString("id"), (Object)node.getString("name"), node.getDouble("pos_x"), node.getDouble("pos_y"), node.getDouble("width"), node.getDouble("height"));
+			}
+			pc = (mxCell) ((mxGraphModel)graph.getModel()).getCell("pc");
+			add1 = (mxCell) ((mxGraphModel)graph.getModel()).getCell("add1");
+			instruction_memory = (mxCell) ((mxGraphModel)graph.getModel()).getCell("instruction_memory");
+			shift1 = (mxCell) ((mxGraphModel)graph.getModel()).getCell("shift1");
+			control = (mxCell) ((mxGraphModel)graph.getModel()).getCell("control");
+			mux1 = (mxCell) ((mxGraphModel)graph.getModel()).getCell("mux1");
+			sign_extend = (mxCell) ((mxGraphModel)graph.getModel()).getCell("sign_extend");
+			registers = (mxCell) ((mxGraphModel)graph.getModel()).getCell("registers");
+			shift2 = (mxCell) ((mxGraphModel)graph.getModel()).getCell("shift2");
+			mux2 = (mxCell) ((mxGraphModel)graph.getModel()).getCell("mux2");
+			alu_control = (mxCell) ((mxGraphModel)graph.getModel()).getCell("alu_control");
+			add2 = (mxCell) ((mxGraphModel)graph.getModel()).getCell("add2");
+			alu = (mxCell) ((mxGraphModel)graph.getModel()).getCell("alu");
+			mux3 = (mxCell) ((mxGraphModel)graph.getModel()).getCell("mux3");
+			mux4 = (mxCell) ((mxGraphModel)graph.getModel()).getCell("mux4");
+			and_gate = (mxCell) ((mxGraphModel)graph.getModel()).getCell("and_gate");
+			data_memory = (mxCell) ((mxGraphModel)graph.getModel()).getCell("data_memory");
+			mux5 = (mxCell) ((mxGraphModel)graph.getModel()).getCell("mux5");
 
-			pc_add1 = graph.insertEdge(parent, null, "", pc, add1, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
-					+ "exitX=1;exitY=0.3;exitPerimeter=1;entryX=0;entryY=0.3;entryPerimeter=1;");
-			add1_add2 = graph.insertEdge(parent, null, "", add1, add2, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
-					+ "exitX=1;exitY=0.8;exitPerimeter=1;entryX=0;entryY=0.3;entryPerimeter=1;");
-			pc_im = graph.insertEdge(parent, null, "", pc, instruction_memory, "orthogonal=0;exitX=1;exitY=0.7;exitPerimeter=1;"
-					+ "entryX=0;entryY=0.3;entryPerimeter=1;");
-			im_shift1 = graph.insertEdge(parent, null, "", instruction_memory, shift1, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
-					+ "exitX=1;exitY=0.1;exitPerimeter=1;entryX=0;entryY=0.3;entryPerimeter=1;");
+			json_keys = edges.keys();
+			
+			while( json_keys.hasNext() ){
+				String json_key = (String)json_keys.next();
+				JSONObject node = edges.getJSONObject(json_key);
+				Object first_node = (mxCell) ((mxGraphModel)graph.getModel()).getCell(node.getString("vertex_id_from"));
+				Object second_node = (mxCell) ((mxGraphModel)graph.getModel()).getCell(node.getString("vertex_id_to"));
+				graph.insertEdge(parent, node.getString("id"), (Object)node.getString("name"), first_node, second_node, node.getString("style"));
+			}
+			pc_add1 = (mxCell) ((mxGraphModel)graph.getModel()).getCell("pc_add1");
+			pc_im = (mxCell) ((mxGraphModel)graph.getModel()).getCell("pc_im");
 			im_control = graph.insertEdge(parent, null, "", instruction_memory, control, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
 					+ "exitX=1;exitY=0.2;exitPerimeter=1;entryX=0;entryY=0.3;entryPerimeter=1;");
-			im_mux1_upper = graph.insertEdge(parent, null, "", instruction_memory, mux1, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
-					+ "exitX=1;exitY=0.3;exitPerimeter=1;entryX=0;entryY=0.3;entryPerimeter=1;");
-			im_mux1_lower = graph.insertEdge(parent, null, "", instruction_memory, mux1, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
-					+ "exitX=1;exitY=0.4;exitPerimeter=1;entryX=0;entryY=0.7;entryPerimeter=1;");
-			im_registers_upper = graph.insertEdge(parent, null, "", instruction_memory, registers, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
+			Object im_registers_upper = graph.insertEdge(parent, null, "", instruction_memory, registers, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
 					+ "exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.55;entryPerimeter=1;");
-			im_registers_lower = graph.insertEdge(parent, null, "", instruction_memory, registers, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
+			Object im_registers_lower = graph.insertEdge(parent, null, "", instruction_memory, registers, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
 					+ "exitX=1;exitY=0.7;exitPerimeter=1;entryX=0;entryY=0.65;entryPerimeter=1;");
-			im_sign = graph.insertEdge(parent, null, "", instruction_memory, sign_extend, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
+			Object im_sign = graph.insertEdge(parent, null, "", instruction_memory, sign_extend, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
 					+ "exitX=1;exitY=0.8;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;");
 			im_aluc = graph.insertEdge(parent, null, "", instruction_memory, alu_control, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
 					+ "exitX=1;exitY=0.9;exitPerimeter=1;entryX=0;entryY=0.4;entryPerimeter=1;");
-			control_mux1 = graph.insertEdge(parent, null, "", control, mux1, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
+			Object control_mux1 = graph.insertEdge(parent, null, "", control, mux1, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
 					+ "exitX=0.3;exitY=1;exitPerimeter=1;entryX=0.5;entryY=0;entryPerimeter=1;");
-			control_registers = graph.insertEdge(parent, null, "", control, registers, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
+			Object control_registers = graph.insertEdge(parent, null, "", control, registers, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
 					+ "exitX=0.7;exitY=1;exitPerimeter=1;entryX=0.5;entryY=0;entryPerimeter=1;");
 			control_mux4 = graph.insertEdge(parent, null, "", control, mux4, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
 					+ "exitX=1;exitY=0.1;exitPerimeter=1;entryX=0;entryY=0.6;entryPerimeter=1;");
-			control_andgate = graph.insertEdge(parent, null, "", control, and_gate, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
+			Object control_andgate = graph.insertEdge(parent, null, "", control, and_gate, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
 					+ "exitX=1;exitY=0.2;exitPerimeter=1;entryX=0;entryY=0.3;entryPerimeter=1;");
-			control_mux5 = graph.insertEdge(parent, null, "", control, mux5, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
+			Object control_mux5 = graph.insertEdge(parent, null, "", control, mux5, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
 					+ "exitX=1;exitY=0.5;exitPerimeter=1;entryX=0.5;entryY=0;entryPerimeter=1;");
-			control_data = graph.insertEdge(parent, null, "", control, data_memory, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
+			Object control_data = graph.insertEdge(parent, null, "", control, data_memory, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
 					+ "exitX=1;exitY=0.6;exitPerimeter=1;entryX=0.7;entryY=0;entryPerimeter=1;");
 			graph.insertEdge(parent, null, "", control, data_memory, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
 					+ "exitX=1;exitY=0.7;exitPerimeter=1;entryX=0.3;entryY=0;entryPerimeter=1;");
@@ -215,7 +240,8 @@ public class PLPVisualizer extends JFrame
 		frontend.addListener(new SnapshotEventHandler(){
 			public void receiveSnapshot(String color)
 			{
-				graph.setCellStyles(mxConstants.STYLE_FILLCOLOR, color, new Object[]{pc, add1, mux3, alu, mux4, and_gate, instruction_memory, control, alu_control});
+				mxCell myCell = (mxCell) ((mxGraphModel)graph.getModel()).getCell("pc");
+				graph.setCellStyles(mxConstants.STYLE_FILLCOLOR, color, new Object[]{myCell, add1, mux3, alu, mux4, and_gate, instruction_memory, control, alu_control});
 				graph.setCellStyles(mxConstants.STYLE_STROKECOLOR, color, new Object[]{pc_add1, add1_mux4, pc_im, im_aluc, im_control, control_mux4, aluc_alu, alu_andgate, andgate_mux3});
 			}
 		});
