@@ -16,6 +16,7 @@ import org.json.JSONObject;
 import com.asu.plp.communication.BackendProducer;
 import com.asu.plp.communication.FrontendConsumer;
 import com.asu.plp.event.SnapshotEventHandler;
+import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGraphModel;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.util.mxConstants;
@@ -136,7 +137,8 @@ public class PLPVisualizer extends JFrame
 				while( json_keys.hasNext() ) {
 					String json_key = (String)json_keys.next();
 					JSONObject node = vertices.getJSONObject(json_key);
-					System.out.println(node);
+					mxCell myCell = (mxCell) ((mxGraphModel)graph.getModel()).getCell(json_key);
+					myCell.setValue(node);
 				}
 
 				JSONObject edges = snapshot.getJSONObject("enabled_edges");
