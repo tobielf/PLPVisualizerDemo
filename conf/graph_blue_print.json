@@ -194,6 +194,230 @@
 			"vertex_id_from": "instruction_memory",
 			"vertex_id_to": "mux1",
 			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.4;exitPerimeter=1;entryX=0;entryY=0.7;entryPerimeter=1;"
+		},
+		"im_sign": {
+			"name": "",
+			"id": "im_sign",
+			"vertex_id_from": "instruction_memory",
+			"vertex_id_to": "sign_extend",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.8;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"
+		},
+		"im_aluc": {
+			"name": "",
+			"id": "im_aluc",
+			"vertex_id_from": "instruction_memory",
+			"vertex_id_to": "alu_control",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.9;exitPerimeter=1;entryX=0;entryY=0.4;entryPerimeter=1;"
+		},
+		"control_mux1": {
+			"name": "",
+			"id": "control_mux1",
+			"vertex_id_from": "control",
+			"vertex_id_to": "mux1",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=0.3;exitY=1;exitPerimeter=1;entryX=0.5;entryY=0;entryPerimeter=1;"
+		},
+		"control_registers": {
+			"name": "",
+			"id": "control_registers",
+			"vertex_id_from": "control",
+			"vertex_id_to": "registers",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=0.7;exitY=1;exitPerimeter=1;entryX=0.5;entryY=0;entryPerimeter=1;"
+		},
+		"control_mux4": {
+			"name": "",
+			"id": "control_mux4",
+			"vertex_id_from": "control",
+			"vertex_id_to": "mux4",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.1;exitPerimeter=1;entryX=0;entryY=0.6;entryPerimeter=1;"
+		},
+		"control_andgate": {
+			"name": "",
+			"id": "control_andgate",
+			"vertex_id_from": "control",
+			"vertex_id_to": "and_gate",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.2;exitPerimeter=1;entryX=0;entryY=0.3;entryPerimeter=1;"
+		},
+		"control_mux5": {
+			"name": "",
+			"id": "control_mux5",
+			"vertex_id_from": "control",
+			"vertex_id_to": "mux5",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.5;exitPerimeter=1;entryX=0.5;entryY=0;entryPerimeter=1;"
+		},
+		"control_data_left": {
+			"name": "",
+			"id": "control_datamemory_left",
+			"vertex_id_from": "control",
+			"vertex_id_to": "data_memory",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.6;exitPerimeter=1;entryX=0.7;entryY=0;entryPerimeter=1;"
+		},
+		"control_data_right": {
+			"name": "",
+			"id": "control_datamemory_right",
+			"vertex_id_from": "control",
+			"vertex_id_to": "data_memory",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.7;exitPerimeter=1;entryX=0.3;entryY=0;entryPerimeter=1;"
+		},
+		"control_mux2" :{
+			"name": "",
+			"id": "control_mux2",
+			"vertex_id_from": "control",
+			"vertex_id_to": "mux2",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.8;exitPerimeter=1;entryX=0.5;entryY=0;entryPerimeter=1;"
+		},
+		"control_alu_control" :{
+			"name": "",
+			"id": "control_alu_control",
+			"vertex_id_from": "control",
+			"vertex_id_to": "alu_control",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.9;exitPerimeter=1;entryX=0;entryY=0.1;entryPerimeter=1;"
+		},
+		"alu_control_alu" :{
+			"name": "",
+			"id": "alu_control_alu",
+			"vertex_id_from": "alu_control",
+			"vertex_id_to": "alu",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.5;exitPerimeter=1;entryX=0.5;entryY=1;entryPerimeter=1;"
+		},
+		"mux1_registers" :{
+			"name": "",
+			"id": "mux1_registers",
+			"vertex_id_from": "mux1",
+			"vertex_id_to": "registers",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.3;entryPerimeter=1;"
+		},
+		"registers_alu" :{
+			"name": "",
+			"id": "registers_alu",
+			"vertex_id_from": "registers",
+			"vertex_id_to": "alu",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.3;exitPerimeter=1;entryX=0;entryY=0.2;entryPerimeter=1;"
+		},
+		"registers_mux2" :{
+			"name": "",
+			"id": "registers_mux2",
+			"vertex_id_from": "registers",
+			"vertex_id_to": "mux2",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.6;exitPerimeter=1;entryX=0;entryY=0.3;entryPerimeter=1;"
+		},
+		"registers_data_memory" :{
+			"name": "",
+			"id": "registers_data_memory",
+			"vertex_id_from": "registers",
+			"vertex_id_to": "data_memory",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.9;exitPerimeter=1;entryX=0;entryY=0.8;entryPerimeter=1;"
+		},
+		"mux3_mux4" :{
+			"name": "",
+			"id": "mux3_mux4",
+			"vertex_id_from": "mux3",
+			"vertex_id_to": "mux4",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.8;entryPerimeter=1;"
+		},
+		"sign_extend_shift2" :{
+			"name": "",
+			"id": "sign_extend_shift2",
+			"vertex_id_from": "sign_extend",
+			"vertex_id_to": "shift2",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"
+		},
+		"sign_extend_mux2" :{
+			"name": "",
+			"id": "sign_extend_mux2",
+			"vertex_id_from": "sign_extend",
+			"vertex_id_to": "mux2",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.7;entryPerimeter=1;"
+		},
+		"mux2_alu" :{
+			"name": "",
+			"id": "mux2_alu",
+			"vertex_id_from": "mux2",
+			"vertex_id_to": "alu",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.75;entryPerimeter=1;"
+		},
+		"add1_mux3" :{
+			"name": "",
+			"id": "add1_mux3",
+			"vertex_id_from": "add1",
+			"vertex_id_to": "mux3",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.8;exitPerimeter=1;entryX=0;entryY=0.35;entryPerimeter=1;"
+		},
+		"add1_mux4" :{
+			"name": "",
+			"id": "add1_mux4",
+			"vertex_id_from": "add1",
+			"vertex_id_to": "mux4",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.1;exitPerimeter=1;entryX=0;entryY=0.2;entryPerimeter=1;"
+		},
+		"shift1_mux4" :{
+			"name": "",
+			"id": "shift1_mux4",
+			"vertex_id_from": "shift1",
+			"vertex_id_to": "mux4",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.4;exitPerimeter=1;entryX=0;entryY=0.4;entryPerimeter=1;"
+		},
+		"shift2_add2" :{
+			"name": "",
+			"id": "shift2_add2",
+			"vertex_id_from": "shift2",
+			"vertex_id_to": "add2",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"
+		},
+		"add2_mux3" :{
+			"name": "",
+			"id": "add2_mux3",
+			"vertex_id_from": "add2",
+			"vertex_id_to": "mux3",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.7;entryPerimeter=1;"
+		},
+		"alu_and_gate" :{
+			"name": "",
+			"id": "alu_and_gate",
+			"vertex_id_from": "alu",
+			"vertex_id_to": "and_gate",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.1;exitPerimeter=1;entryX=0;entryY=0.6;entryPerimeter=1;"
+		},
+		"alu_data_memory" :{
+			"name": "",
+			"id": "alu_data_memory",
+			"vertex_id_from": "alu",
+			"vertex_id_to": "data_memory",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.35;exitPerimeter=1;entryX=0;entryY=0.2;entryPerimeter=1;"
+		},
+		"alu_mux5" :{
+			"name": "",
+			"id": "alu_mux5",
+			"vertex_id_from": "alu",
+			"vertex_id_to": "mux5",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.35;exitPerimeter=1;entryX=0;entryY=0.2;entryPerimeter=1;"
+		},
+		"data_memory_mux5" :{
+			"name": "",
+			"id": "data_memory_mux5",
+			"vertex_id_from": "data_memory",
+			"vertex_id_to": "mux5",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.1;exitPerimeter=1;entryX=0;entryY=0.8;entryPerimeter=1;"
+		},
+		"and_gate_mux3" :{
+			"name": "",
+			"id": "and_gate_mux3",
+			"vertex_id_from": "and_gate",
+			"vertex_id_to": "mux3",
+			"style":"edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.5;exitPerimeter=1;entryX=0.5;entryY=1;entryPerimeter=1;"
+		},
+		"mux5_registers" :{
+			"name": "",
+			"id": "mux5_registers",
+			"vertex_id_from": "mux5",
+			"vertex_id_to": "registers",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=0.5;exitY=1;exitPerimeter=1;entryX=0.5;entryY=1;entryPerimeter=1;"
+		},
+		"mux4_pc" :{
+			"name": "",
+			"id": "mux4_pc",
+			"vertex_id_from": "mux4",
+			"vertex_id_to": "pc",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=0.5;exitY=0;exitPerimeter=1;entryX=0.5;entryY=0;entryPerimeter=1;"
 		}
 	}
 }

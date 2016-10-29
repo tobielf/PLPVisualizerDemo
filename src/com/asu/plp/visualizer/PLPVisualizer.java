@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import javax.swing.JFrame;
@@ -63,28 +64,19 @@ public class PLPVisualizer extends JFrame
 		Object pc;
 		Object add1;
 		Object instruction_memory;
-		Object shift1;
 		Object control;
-		Object mux1;
-		Object sign_extend;
-		Object registers;
-		Object shift2;
-		Object mux2;
 		Object alu_control;
-		Object add2;
 		Object alu;
 		Object mux3;
 		Object mux4;
 		Object and_gate;
-		Object data_memory;
-		Object mux5;
+
 		// edges
 		Object pc_add1;
 		Object pc_im;
 		Object im_control;
 		Object im_aluc;
 		Object control_mux4;
-		
 		Object add1_mux4;
 		Object aluc_alu;
 		Object alu_andgate;
@@ -103,21 +95,13 @@ public class PLPVisualizer extends JFrame
 			pc = (mxCell) ((mxGraphModel)graph.getModel()).getCell("pc");
 			add1 = (mxCell) ((mxGraphModel)graph.getModel()).getCell("add1");
 			instruction_memory = (mxCell) ((mxGraphModel)graph.getModel()).getCell("instruction_memory");
-			shift1 = (mxCell) ((mxGraphModel)graph.getModel()).getCell("shift1");
 			control = (mxCell) ((mxGraphModel)graph.getModel()).getCell("control");
-			mux1 = (mxCell) ((mxGraphModel)graph.getModel()).getCell("mux1");
-			sign_extend = (mxCell) ((mxGraphModel)graph.getModel()).getCell("sign_extend");
-			registers = (mxCell) ((mxGraphModel)graph.getModel()).getCell("registers");
-			shift2 = (mxCell) ((mxGraphModel)graph.getModel()).getCell("shift2");
-			mux2 = (mxCell) ((mxGraphModel)graph.getModel()).getCell("mux2");
 			alu_control = (mxCell) ((mxGraphModel)graph.getModel()).getCell("alu_control");
-			add2 = (mxCell) ((mxGraphModel)graph.getModel()).getCell("add2");
 			alu = (mxCell) ((mxGraphModel)graph.getModel()).getCell("alu");
 			mux3 = (mxCell) ((mxGraphModel)graph.getModel()).getCell("mux3");
 			mux4 = (mxCell) ((mxGraphModel)graph.getModel()).getCell("mux4");
 			and_gate = (mxCell) ((mxGraphModel)graph.getModel()).getCell("and_gate");
-			data_memory = (mxCell) ((mxGraphModel)graph.getModel()).getCell("data_memory");
-			mux5 = (mxCell) ((mxGraphModel)graph.getModel()).getCell("mux5");
+
 
 			json_keys = edges.keys();
 			
@@ -130,76 +114,13 @@ public class PLPVisualizer extends JFrame
 			}
 			pc_add1 = (mxCell) ((mxGraphModel)graph.getModel()).getCell("pc_add1");
 			pc_im = (mxCell) ((mxGraphModel)graph.getModel()).getCell("pc_im");
-			im_control = graph.insertEdge(parent, null, "", instruction_memory, control, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
-					+ "exitX=1;exitY=0.2;exitPerimeter=1;entryX=0;entryY=0.3;entryPerimeter=1;");
-			Object im_registers_upper = graph.insertEdge(parent, null, "", instruction_memory, registers, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
-					+ "exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.55;entryPerimeter=1;");
-			Object im_registers_lower = graph.insertEdge(parent, null, "", instruction_memory, registers, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
-					+ "exitX=1;exitY=0.7;exitPerimeter=1;entryX=0;entryY=0.65;entryPerimeter=1;");
-			Object im_sign = graph.insertEdge(parent, null, "", instruction_memory, sign_extend, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
-					+ "exitX=1;exitY=0.8;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;");
-			im_aluc = graph.insertEdge(parent, null, "", instruction_memory, alu_control, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
-					+ "exitX=1;exitY=0.9;exitPerimeter=1;entryX=0;entryY=0.4;entryPerimeter=1;");
-			Object control_mux1 = graph.insertEdge(parent, null, "", control, mux1, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
-					+ "exitX=0.3;exitY=1;exitPerimeter=1;entryX=0.5;entryY=0;entryPerimeter=1;");
-			Object control_registers = graph.insertEdge(parent, null, "", control, registers, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
-					+ "exitX=0.7;exitY=1;exitPerimeter=1;entryX=0.5;entryY=0;entryPerimeter=1;");
-			control_mux4 = graph.insertEdge(parent, null, "", control, mux4, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
-					+ "exitX=1;exitY=0.1;exitPerimeter=1;entryX=0;entryY=0.6;entryPerimeter=1;");
-			Object control_andgate = graph.insertEdge(parent, null, "", control, and_gate, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
-					+ "exitX=1;exitY=0.2;exitPerimeter=1;entryX=0;entryY=0.3;entryPerimeter=1;");
-			Object control_mux5 = graph.insertEdge(parent, null, "", control, mux5, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
-					+ "exitX=1;exitY=0.5;exitPerimeter=1;entryX=0.5;entryY=0;entryPerimeter=1;");
-			Object control_data = graph.insertEdge(parent, null, "", control, data_memory, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
-					+ "exitX=1;exitY=0.6;exitPerimeter=1;entryX=0.7;entryY=0;entryPerimeter=1;");
-			graph.insertEdge(parent, null, "", control, data_memory, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
-					+ "exitX=1;exitY=0.7;exitPerimeter=1;entryX=0.3;entryY=0;entryPerimeter=1;");
-			graph.insertEdge(parent, null, "", control, mux2, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
-					+ "exitX=1;exitY=0.8;exitPerimeter=1;entryX=0.5;entryY=0;entryPerimeter=1;");
-			graph.insertEdge(parent, null, "", control, alu_control, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
-					+ "exitX=1;exitY=0.9;exitPerimeter=1;entryX=0;entryY=0.1;entryPerimeter=1;");
-			aluc_alu = graph.insertEdge(parent, null, "", alu_control, alu, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
-					+ "exitX=1;exitY=0.5;exitPerimeter=1;entryX=0.5;entryY=1;entryPerimeter=1;");
-			graph.insertEdge(parent, null, "", mux1, registers, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
-					+ "exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.3;entryPerimeter=1;");
-			graph.insertEdge(parent, null, "", registers, alu, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
-					+ "exitX=1;exitY=0.3;exitPerimeter=1;entryX=0;entryY=0.2;entryPerimeter=1;");
-			graph.insertEdge(parent, null, "", registers, mux2, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
-					+ "exitX=1;exitY=0.6;exitPerimeter=1;entryX=0;entryY=0.3;entryPerimeter=1;");
-			graph.insertEdge(parent, null, "", registers, data_memory, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
-					+ "exitX=1;exitY=0.9;exitPerimeter=1;entryX=0;entryY=0.8;entryPerimeter=1;");
-			graph.insertEdge(parent, null, "", mux3, mux4, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
-					+ "exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.8;entryPerimeter=1;");
-			graph.insertEdge(parent, null, "", sign_extend, shift2, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
-					+ "exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;");
-			graph.insertEdge(parent, null, "", sign_extend, mux2, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
-					+ "exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.7;entryPerimeter=1;");
-			graph.insertEdge(parent, null, "", mux2, alu, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
-					+ "exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.75;entryPerimeter=1;");
-			graph.insertEdge(parent, null, "", add1, mux3, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
-					+ "exitX=1;exitY=0.8;exitPerimeter=1;entryX=0;entryY=0.35;entryPerimeter=1;");
-			add1_mux4 = graph.insertEdge(parent, null, "", add1, mux4, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
-					+ "exitX=1;exitY=0.1;exitPerimeter=1;entryX=0;entryY=0.2;entryPerimeter=1;");
-			graph.insertEdge(parent, null, "", shift1, mux4, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
-					+ "exitX=1;exitY=0.4;exitPerimeter=1;entryX=0;entryY=0.4;entryPerimeter=1;");
-			graph.insertEdge(parent, null, "", shift2, add2, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
-					+ "exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;");
-			graph.insertEdge(parent, null, "", add2, mux3, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
-					+ "exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.7;entryPerimeter=1;");
-			alu_andgate = graph.insertEdge(parent, null, "", alu, and_gate, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
-					+ "exitX=1;exitY=0.1;exitPerimeter=1;entryX=0;entryY=0.6;entryPerimeter=1;");
-			graph.insertEdge(parent, null, "", alu, data_memory, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
-					+ "exitX=1;exitY=0.35;exitPerimeter=1;entryX=0;entryY=0.2;entryPerimeter=1;");
-			graph.insertEdge(parent, null, "", alu, mux5, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
-					+ "exitX=1;exitY=0.35;exitPerimeter=1;entryX=0;entryY=0.2;entryPerimeter=1;");
-			graph.insertEdge(parent, null, "", data_memory, mux5, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
-					+ "exitX=1;exitY=0.1;exitPerimeter=1;entryX=0;entryY=0.8;entryPerimeter=1;");
-			andgate_mux3 = graph.insertEdge(parent, null, "", and_gate, mux3, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
-					+ "exitX=1;exitY=0.5;exitPerimeter=1;entryX=0.5;entryY=1;entryPerimeter=1;");
-			graph.insertEdge(parent, null, "", mux5, registers, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
-					+ "exitX=0.5;exitY=1;exitPerimeter=1;entryX=0.5;entryY=1;entryPerimeter=1;");
-			graph.insertEdge(parent, null, "", mux4, pc, "edgeStyle=elbowEdgeStyle;elbow=horizontal;"
-					+ "exitX=0.5;exitY=0;exitPerimeter=1;entryX=0.5;entryY=0;entryPerimeter=1;");
+			im_control = (mxCell) ((mxGraphModel)graph.getModel()).getCell("im_control");
+			im_aluc = (mxCell) ((mxGraphModel)graph.getModel()).getCell("im_aluc");
+			control_mux4 = (mxCell) ((mxGraphModel)graph.getModel()).getCell("control_mux4");
+			aluc_alu = (mxCell) ((mxGraphModel)graph.getModel()).getCell("alu_control_alu");
+			add1_mux4 = (mxCell) ((mxGraphModel)graph.getModel()).getCell("add1_mux4");
+			alu_andgate = (mxCell) ((mxGraphModel)graph.getModel()).getCell("alu_and_gate");
+			andgate_mux3 = (mxCell) ((mxGraphModel)graph.getModel()).getCell("and_gate_mux3");
 		}
 		finally
 		{
@@ -222,14 +143,14 @@ public class PLPVisualizer extends JFrame
 			public void mouseEntered(MouseEvent e)
 			{
 				System.out.println("Hover");
-				graph.setCellStyles(mxConstants.STYLE_FILLCOLOR, "green", new Object[]{pc, add1, alu, mux3, mux4, and_gate, instruction_memory, control, alu_control});
-				graph.setCellStyles(mxConstants.STYLE_STROKECOLOR, "green", new Object[]{pc_add1, add1_mux4, pc_im, im_aluc, im_control, control_mux4, aluc_alu, alu_andgate, andgate_mux3});
+				//graph.setCellStyles(mxConstants.STYLE_FILLCOLOR, "green", new Object[]{pc, add1, alu, mux3, mux4, and_gate, instruction_memory, control, alu_control});
+				//graph.setCellStyles(mxConstants.STYLE_STROKECOLOR, "green", new Object[]{pc_add1, add1_mux4, pc_im, im_aluc, im_control, control_mux4, aluc_alu, alu_andgate, andgate_mux3});
 			}
 			public void mouseExited(MouseEvent e)
 			{
 				System.out.println("Leave");
-				graph.setCellStyles(mxConstants.STYLE_FILLCOLOR, "red", new Object[]{pc, add1, mux3, alu, mux4, and_gate, instruction_memory, control, alu_control});
-				graph.setCellStyles(mxConstants.STYLE_STROKECOLOR, "red", new Object[]{pc_add1, add1_mux4, pc_im, im_aluc, im_control, control_mux4, aluc_alu, alu_andgate, andgate_mux3});
+				//graph.setCellStyles(mxConstants.STYLE_FILLCOLOR, "red", new Object[]{pc, add1, mux3, alu, mux4, and_gate, instruction_memory, control, alu_control});
+				//graph.setCellStyles(mxConstants.STYLE_STROKECOLOR, "red", new Object[]{pc_add1, add1_mux4, pc_im, im_aluc, im_control, control_mux4, aluc_alu, alu_andgate, andgate_mux3});
 			}
 			public void mouseMoved(MouseEvent e)
 			{
@@ -238,11 +159,36 @@ public class PLPVisualizer extends JFrame
 		});
 		FrontendConsumer frontend = new FrontendConsumer();
 		frontend.addListener(new SnapshotEventHandler(){
-			public void receiveSnapshot(String color)
+			public void receiveSnapshot(String jsonString)
 			{
-				mxCell myCell = (mxCell) ((mxGraphModel)graph.getModel()).getCell("pc");
-				graph.setCellStyles(mxConstants.STYLE_FILLCOLOR, color, new Object[]{myCell, add1, mux3, alu, mux4, and_gate, instruction_memory, control, alu_control});
-				graph.setCellStyles(mxConstants.STYLE_STROKECOLOR, color, new Object[]{pc_add1, add1_mux4, pc_im, im_aluc, im_control, control_mux4, aluc_alu, alu_andgate, andgate_mux3});
+				JSONObject conf = new JSONObject(jsonString);
+				JSONObject vertices = conf.getJSONObject("vertices_values");
+				Iterator<?> json_keys = vertices.keys();
+				ArrayList<Object> enabled_list = new ArrayList<Object>();
+				ArrayList<Object> disabled_list = new ArrayList<Object>();
+				
+				while( json_keys.hasNext() ){
+					String json_key = (String)json_keys.next();
+					JSONObject node = vertices.getJSONObject(json_key);
+					System.out.println(node);
+				}
+				
+				JSONObject edges = conf.getJSONObject("enabled_edges");
+				json_keys = edges.keys();
+				
+				while( json_keys.hasNext() ){
+					String json_key = (String)json_keys.next();
+					int enabled = edges.getInt(json_key);
+					mxCell myCell = (mxCell) ((mxGraphModel)graph.getModel()).getCell(json_key);
+					if (enabled == 1)
+						enabled_list.add(myCell);
+					else
+						disabled_list.add(myCell);
+				}
+				//graph.setCellStyles(mxConstants.STYLE_FILLCOLOR, color, new Object[]{myCell, add1, mux3, alu, mux4, and_gate, instruction_memory, control, alu_control});
+				//graph.setCellStyles(mxConstants.STYLE_STROKECOLOR, color, new Object[]{pc_add1, add1_mux4, pc_im, im_aluc, im_control, control_mux4, aluc_alu, alu_andgate, andgate_mux3});
+				graph.setCellStyles(mxConstants.STYLE_STROKECOLOR, "red", enabled_list.toArray());
+				graph.setCellStyles(mxConstants.STYLE_STROKECOLOR, "green", disabled_list.toArray());
 			}
 		});
 		thread(frontend, false);

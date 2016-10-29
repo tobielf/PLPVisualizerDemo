@@ -1,5 +1,10 @@
 package com.asu.plp.communication;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
 import javax.jms.Connection;
 import javax.jms.DeliveryMode;
 import javax.jms.Destination;
@@ -11,8 +16,8 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 
 public class BackendProducer implements Runnable {
 	public void run() {
-		String colors[] = {"red", "green"};
-		int color = 0;
+
+		int test_number = 0;
 		while (true) {
 			try {
 				Thread.sleep(1000);
@@ -34,11 +39,26 @@ public class BackendProducer implements Runnable {
 				producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 
 				// Create a messages
-				if (color == 0)
-					color = 1;
-				else
-					color = 0;
-				String text = colors[color];
+				String conf_file = "test_data/fake" + String.valueOf(test_number) + ".json";
+				test_number++;
+				if (test_number > 4)
+					test_number = 0;
+				BufferedReader reader;
+				String line = null;
+				String text = "";
+				try {
+					reader = new BufferedReader(new FileReader (conf_file));
+					while((line = reader.readLine()) != null) {
+						text += line;
+					}
+					reader.close();
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				TextMessage message = session.createTextMessage(text);
 
 				// Tell the producer to send the message
